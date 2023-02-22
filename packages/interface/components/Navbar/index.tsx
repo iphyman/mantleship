@@ -58,7 +58,11 @@ export const Navbar = () => {
             maxWidth="68rem"
           >
             <HStack spacing="5">
-              <Link href="" isExternal aria-label="view mantleship source code">
+              <Link
+                href="https://github.com/iphyman/mantleship"
+                isExternal
+                aria-label="view mantleship source code"
+              >
                 <Icon
                   boxSize="5"
                   display="block"
@@ -67,16 +71,11 @@ export const Navbar = () => {
                   as={FaGithub}
                 />
               </Link>
-              <Link href="" isExternal aria-label="view mantleship source code">
-                <Icon
-                  boxSize="5"
-                  display="block"
-                  transition="color 0.2s ease"
-                  _hover={{ color: "gray.600" }}
-                  as={FaDiscord}
-                />
-              </Link>
-              <Link href="" isExternal aria-label="view mantleship source code">
+              <Link
+                href="https://vimeo.com/801374770"
+                isExternal
+                aria-label="view mantleship source code"
+              >
                 <Icon
                   boxSize="5"
                   display="block"

@@ -64,11 +64,7 @@ export const Attributes = () => {
 
   return (
     <>
-      <HStack
-        w="full"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <HStack w="full" justifyContent="space-between" alignItems="center">
         <VStack alignItems="flex-start">
           <FormLabel marginBottom="0px">Properties</FormLabel>
           <Text textAlign="left" marginTop="0px !important">
@@ -78,7 +74,7 @@ export const Attributes = () => {
         <Switch
           colorScheme="teal"
           size="lg"
-          checked={showAttributes}
+          isChecked={showAttributes}
           onChange={handleShowAttributes}
         />
       </HStack>
