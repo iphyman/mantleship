@@ -1,0 +1,35 @@
+{
+  "name": "@mantleship/interface",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "contracts:compile:abi": "typechain --target ethers-v5 --out-dir abis/types \"./abis/**/*.json\""
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@metamask/jazzicon": "^2.0.0",
+    "@next/font": "13.1.6",
+    "@types/node": "18.13.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "@web3-react/core": "8.0.36-beta.0",
+    "@web3-react/metamask": "8.0.31-beta.0",
+    "@web3-react/network": "8.0.28-beta.0",
+    "eslint": "8.34.0",
+    "eslint-config-next": "13.1.6",
+    "framer-motion": "^9.0.4",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "react-toastify": "^9.1.1",
+    "typescript": "4.9.5"
+  }
+}
