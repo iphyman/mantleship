@@ -10,6 +10,14 @@
   </p>
 </div>
 
+# Home screenshot
+
+![Create Page](./docs/snapshot-1.png)
+
+# Address and balance UI
+
+![Create Page](./docs/snapshot-2.png)
+
 <!-- TABLE OF CONTENTS -->
 <details open>
   <summary>Table of Contents</summary>
@@ -38,9 +46,6 @@
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-
-![Create Page](snapshot-1.png.png)
-![Create Page](snapshot-2.png.png)
 
 Mantleship is a platform that will allow users to create, explore and sell extra-ordinary NFTs across multiple L1 and L2 blockchains. The platform allows users to import their existing NFT collection, customize their profile and share to friends on social media.
 Only collection creation and NFT minting feature has been implemented for demo purposes while we continue work to deliver the complete project.
