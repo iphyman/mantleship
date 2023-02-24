@@ -1,26 +1,26 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { ethers, upgrades } from "hardhat";
+import { ethers } from "hardhat";
 
 const main: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre;
   const { deploy } = deployments;
 
-  const { admin, deployer } = await getNamedAccounts();
+  const { deployer } = await getNamedAccounts();
 
   console.log("Deployer " + deployer);
 
   /**
    * @dev deploy upgradeable Implementation template
    */
-  const TemplateContract = await ethers.getContractFactory("ERC721Collection");
-  const templateContract = await upgrades.deployProxy(
-    TemplateContract,
-    [admin, "Mantleship v1", "MANTv1"],
-    { initializer: "initialize", kind: "uups" }
-  );
 
-  await templateContract.deployed();
+  const templateContract = await deploy("ERC721Collection", {
+    from: deployer,
+    args: [],
+    log: true,
+  });
+
+  console.log("Template", templateContract.address);
 
   /**
    * @dev deploy Collection factory

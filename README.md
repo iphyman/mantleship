@@ -50,7 +50,7 @@
 Mantleship is a platform that will allow users to create, explore and sell extra-ordinary NFTs across multiple L1 and L2 blockchains. The platform allows users to import their existing NFT collection, customize their profile and share to friends on social media.
 Only collection creation and NFT minting feature has been implemented for demo purposes while we continue work to deliver the complete project.
 
-Mantleship NFT factory contract [Mantle explorer](https://explorer.testnet.mantle.xyz/address/0xfC264acFBA063360Fb4F39421593924A9aEDb489)
+Mantleship NFT factory contract [Mantle explorer](https://explorer.testnet.mantle.xyz/address/0xe65c5AB4B1E86cB95FD9401b5FE608Cb87Ed622A)
 
 Mantleship Open Store collection contract [Mantle explorer](https://explorer.testnet.mantle.xyz/address/0x46720a2Bf86Fe20EF217B67a8B5E8Be820fa4c85)
 

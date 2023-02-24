@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -17,7 +17,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
  * `onlyOwner`, which can be applied to your functions to restrict their use to
  * the owner.
  */
-abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
+abstract contract Ownable is Initializable, Context {
     address private _owner;
 
     event OwnershipTransferred(
@@ -93,11 +93,4 @@ abstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {
         _owner = newOwner;
         emit OwnershipTransferred(oldOwner, newOwner);
     }
-
-    /**
-     * @dev This empty reserved space is put in place to allow future versions to add new
-     * variables without shifting down storage in the inheritance chain.
-     * See https://docs.openzeppelin.com/contracts/4.x/upgradeable#storage_gaps
-     */
-    uint256[49] private __gap;
 }

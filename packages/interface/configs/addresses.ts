@@ -2,7 +2,7 @@ import { AddressMap } from "app/types";
 import { ChainId } from "./chains";
 
 export const ERC721_FACTORY_ADDRESSES: AddressMap = {
-  [ChainId.MANTLE_TESTNET]: "0xfC264acFBA063360Fb4F39421593924A9aEDb489",
+  [ChainId.MANTLE_TESTNET]: "0xe65c5AB4B1E86cB95FD9401b5FE608Cb87Ed622A",
 };
 
 export const ERC721_MANTLE_ADDRESSES: AddressMap = {
