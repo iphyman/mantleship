@@ -4,16 +4,18 @@ import { useMintStore } from "app/store";
 
 export const AssetUpload = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  // const [preview, setPreview] = useState<string | null>(null);
   const setRawFile = useMintStore((state) => state.setRawFile);
-  const setPreviewURL = useMintStore((state) => state.setPreviewURL);
+  const [setPreviewURL, previewURL] = useMintStore((state) => [
+    state.setPreviewURL,
+    state.previewURL,
+  ]);
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
     if (!files) return;
     const objectURL = URL.createObjectURL(files[0]);
-    setPreview(objectURL);
     setPreviewURL(objectURL);
     setRawFile(files[0]);
   };
@@ -22,7 +24,7 @@ export const AssetUpload = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-    setPreview(null);
+    setPreviewURL(null);
     setRawFile(null);
   };
 
@@ -30,7 +32,7 @@ export const AssetUpload = () => {
     <FileUpload
       label="Upload File"
       fileTypes="JPG, PNG, GIF, SVG, MP3, MP4, WEBM, WAV, OGG. Max: 100 MB"
-      preview={preview}
+      preview={previewURL}
       resetFile={resetFile}
       ref={fileInputRef}
       onChange={handleImageChange}

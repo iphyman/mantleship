@@ -1,6 +1,6 @@
 import { ConnectionType } from "app/types";
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 interface State {
   account: string;
@@ -21,7 +21,7 @@ export const useConnectionStore = create<State>()(
     persist(
       (set, get) => ({
         account: "",
-        desiredChainId: 5001,
+        desiredChainId: 4002,
         setaccount: (account) => set({ account: account }),
         setDesiredChainId: (chainId) => set({ desiredChainId: chainId }),
         errorByConnectionType: {
@@ -41,7 +41,11 @@ export const useConnectionStore = create<State>()(
         setConnector: (connectionType) =>
           set({ selectedConnector: connectionType }),
       }),
-      { name: "mantleship-connection-store", version: 1 }
+      {
+        name: "mantleship-connection-store",
+        version: 1,
+        storage: createJSONStorage(() => sessionStorage),
+      }
     )
   )
 );

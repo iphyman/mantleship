@@ -21,6 +21,7 @@ import { getChainInfo } from "app/configs";
 import { useNativeBalance } from "app/hooks/useNativeBalance";
 import { useConnectionStore } from "app/store";
 import { shortenAddress } from "app/utils";
+import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { FaExternalLinkAlt, FaPowerOff, FaRegCopy } from "react-icons/fa";
 import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
@@ -89,6 +90,8 @@ export const AccountDropdown = () => {
 
   const chainInfo = getChainInfo(chainId);
   const formatBalance = balance.toPrecision(3);
+
+  const router = useRouter();
 
   return (
     <Popover isOpen={isOpen} onClose={onClose} placement="bottom-end">
@@ -181,8 +184,12 @@ export const AccountDropdown = () => {
                 {formatBalance} {chainInfo && chainInfo.nativeCurrency.symbol}
               </Box>
             </Flex>
-            <Button colorScheme="blue" fontWeight={600}>
-              Add Crypto
+            <Button
+              colorScheme="blue"
+              fontWeight={600}
+              onClick={() => router.push("/my-collections")}
+            >
+              My Collections
             </Button>
           </Flex>
         </PopoverBody>

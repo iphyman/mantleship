@@ -72,7 +72,7 @@ export const Navbar = () => {
                 />
               </Link>
               <Link
-                href="https://vimeo.com/801374770"
+                href="https://vimeo.com/806104800"
                 isExternal
                 aria-label="view mantleship source code"
               >

@@ -45,6 +45,9 @@ export async function pinJSONToIPFS(metadata: TokenMetaData) {
 
   return {
     baseURI: "ipfs://",
-    uri: data.IpfsHash,
+    uri: `ipfs://${data.IpfsHash}`,
   };
 }
+
+export const ipfsToHttp = (url: string) =>
+  url.replace("ipfs://", "https://ipfs.io/ipfs/");

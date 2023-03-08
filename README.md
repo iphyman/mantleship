@@ -3,10 +3,10 @@
     # Mantleship
   </a>
   <p align="center">
-    An opensource dApp to create ERC721 collection and mint NFT on Mantle blockchain
+    An opensource dApp to create ERC721 collection and mint NFT on Fantom and other EVM compatible blockchain
     <br />
     <a href="https://mantleship.vercel.app/">Live Demo dApp</a> |
-    <a href="https://vimeo.com/801374770">Demo video</a>
+    <a href="https://vimeo.com/806104800">Demo video</a>
   </p>
 </div>
 
@@ -47,12 +47,11 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-Mantleship is a platform that will allow users to create, explore and sell extra-ordinary NFTs across multiple L1 and L2 blockchains. The platform allows users to import their existing NFT collection, customize their profile and share to friends on social media.
-Only collection creation and NFT minting feature has been implemented for demo purposes while we continue work to deliver the complete project.
+Mantleship is a zero-code NFT creation tool
 
-Mantleship NFT factory contract [Mantle explorer](https://explorer.testnet.mantle.xyz/address/0xe65c5AB4B1E86cB95FD9401b5FE608Cb87Ed622A)
+Mantleship NFT factory contract [Fantom explorer](https://testnet.ftmscan.com/tx/0x43841c0835b92ec6ad22ee0da9009a132da7e35de8a9d6fae68e492e1c59eca8)
 
-Mantleship Open Store collection contract [Mantle explorer](https://explorer.testnet.mantle.xyz/address/0x46720a2Bf86Fe20EF217B67a8B5E8Be820fa4c85)
+Mantleship Open Store collection contract [Fantom explorer](https://testnet.ftmscan.com/tx/0x9d94cc70632f7f97d22bcddd8cf358f0f688a3d2e640ce42e414bf6f85081224)
 
 ### Built With
 
@@ -90,11 +89,8 @@ yarn lerna run --scope @mantleship/contracts test
 ## Roadmap
 
 - [x] Minting
-- [ ] Explore
-- [ ] Marketplace
-  - [ ] Auction
-  - [ ] Buy Now
-  - [ ] Offer
+- [ ] Explore your created collections and NFTs
+- [ ] Direct listing to existing marketplace
 
 ## Contributing
 

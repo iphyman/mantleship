@@ -17,11 +17,13 @@ import { shallow } from "zustand/shallow";
 import { useWeb3React } from "@web3-react/core";
 import { useMintStore } from "app/store";
 import { useReducer } from "react";
-import { CollectionPayload } from "app/types";
+import { CollectionApiPayload, CollectionPayload } from "app/types";
 import { useCollectionFactory } from "app/hooks/useContract";
 import { COLLECTION_STEPS } from "app/configs/steps";
 import dynamic from "next/dynamic";
+import axios from "axios";
 import { enqueSnackbar } from "..";
+import { Collection } from "@prisma/client";
 
 const ProgressModal = dynamic(() => import("./ProgressModal"), { ssr: false });
 
@@ -61,7 +63,7 @@ export default function CollectionModal(
   };
 
   const handleCreate = async () => {
-    if (!validate() || !collectionFactory) return;
+    if (!validate() || !collectionFactory || !chainId) return;
     //close collection modal
     onClose();
     //open progress modal
@@ -87,14 +89,20 @@ export default function CollectionModal(
       //Notify user on success
       enqueSnackbar("Collection created successfully", "success");
       const [collection, creator, name, symbol] = event.args;
-      setCollections([
-        ...collections,
-        {
-          name,
-          address: collection,
-        },
-      ]);
+
       //Save in a persistent database
+      const payload: CollectionApiPayload = {
+        name,
+        symbol,
+        collectionId: collection,
+        owner: creator,
+        blockchainId: chainId.toString(),
+      };
+      const res = await axios.post<Collection>(
+        "/api/create/collection",
+        payload
+      );
+      setCollections([...collections, res.data]);
       console.log(`Collection: ${collection}`);
       console.log(`Creator: ${creator}`);
       console.log(`Name: ${name}`);

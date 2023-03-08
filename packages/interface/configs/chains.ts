@@ -1,5 +1,6 @@
 export enum ChainId {
   MANTLE_TESTNET = 5001,
+  FANTOM_TESTNET = 4002,
 }
 
 /**

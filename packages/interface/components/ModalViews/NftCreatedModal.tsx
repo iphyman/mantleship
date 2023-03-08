@@ -11,6 +11,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useWeb3React } from "@web3-react/core";
+import { EXPLORER_URLS } from "app/configs";
 import { useMintStore } from "app/store";
 import Image from "next/image";
 import { FaInbox, FaTelegram, FaTwitter } from "react-icons/fa";
@@ -21,6 +23,7 @@ export default function NftCreatedModal(
   props: Pick<ModalProps, "isOpen" | "onClose">
 ) {
   const { isOpen, onClose } = props;
+  const { chainId } = useWeb3React();
   const [collection, name, txHash, previewURL, reset] = useMintStore(
     (state) => [
       state.activeCollection,
@@ -33,6 +36,7 @@ export default function NftCreatedModal(
   );
 
   const shareText = `Hello there, I just created an NFT on the Mantle blockchain with collection address ${collection.address}`;
+  const explorer = EXPLORER_URLS[chainId as number];
 
   return (
     <Modal
@@ -81,10 +85,7 @@ export default function NftCreatedModal(
                   Transaction Hash
                 </Text>
                 <Text>
-                  <Link
-                    href={`https://explorer.testnet.mantle.xyz/tx/${txHash}`}
-                    isExternal
-                  >
+                  <Link href={`${explorer}/tx/${txHash}`} isExternal>
                     {`${txHash.substring(0, 9)}...`}
                   </Link>
                 </Text>

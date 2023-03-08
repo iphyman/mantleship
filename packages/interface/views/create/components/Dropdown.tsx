@@ -18,23 +18,44 @@ import { useMintStore } from "app/store";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import CollectionModal from "app/components/ModalViews/CollectionModal";
+import { useWeb3React } from "@web3-react/core";
+import { DEFAULT_COLLECTION_NAME, ERC721_MANTLE_ADDRESSES } from "app/configs";
+import { Collection } from "@prisma/client";
+import { useEffect } from "react";
+import axios from "axios";
 
 export const Dropdown = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { chainId, account } = useWeb3React();
   const {
     isOpen: isCreateCollectionOpen,
     onOpen: openCreateCollectionModal,
     onClose: closeCreateCollectionModal,
   } = useDisclosure();
 
-  const [collections, activeCollection, setActiveCollection] = useMintStore(
-    (state) => [
-      state.collections,
-      state.activeCollection,
-      state.setActiveCollection,
-    ],
-    shallow
-  );
+  const [collections, activeCollection, setActiveCollection, setCollections] =
+    useMintStore(
+      (state) => [
+        state.collections,
+        state.activeCollection,
+        state.setActiveCollection,
+        state.setCollections,
+      ],
+      shallow
+    );
+
+  useEffect(() => {
+    const fetch = async () => {
+      if (account) {
+        const response = await axios.get<Collection[]>(
+          `/api/${account}/collections?chainId=${chainId}`
+        );
+        setCollections([...response.data]);
+      }
+    };
+
+    fetch();
+  }, [account, chainId]);
 
   return (
     <>
@@ -65,7 +86,7 @@ export const Dropdown = () => {
           </chakra.span>
         </PopoverAnchor>
         <PopoverContent w="full">
-          <PopoverBody padding="0px">
+          <PopoverBody padding="0px" maxHeight="280px" overflowY="auto">
             <VStack w="full" spacing={0}>
               <Button
                 colorScheme="gray"
@@ -80,6 +101,30 @@ export const Dropdown = () => {
                   <Text>Create a new collection</Text>
                 </HStack>
               </Button>
+              {chainId && (
+                <Button
+                  colorScheme="gray"
+                  w="full"
+                  h="3rem"
+                  onClick={() => {
+                    setActiveCollection({
+                      name: DEFAULT_COLLECTION_NAME,
+                      address: ERC721_MANTLE_ADDRESSES[chainId],
+                    });
+                    onClose();
+                  }}
+                  justifyContent="flex-start"
+                  borderRadius={0}
+                >
+                  <HStack>
+                    <Identicon
+                      size={24}
+                      seed={ERC721_MANTLE_ADDRESSES[chainId]}
+                    />
+                    <Text>{DEFAULT_COLLECTION_NAME}</Text>
+                  </HStack>
+                </Button>
+              )}
               {collections.map((collection) => {
                 return (
                   <Button
@@ -89,13 +134,16 @@ export const Dropdown = () => {
                     colorScheme="gray"
                     borderRadius={0}
                     onClick={() => {
-                      setActiveCollection(collection);
+                      setActiveCollection({
+                        name: collection.name as string,
+                        address: collection.collectionId,
+                      });
                       onClose();
                     }}
-                    key={collection.address}
+                    key={collection.collectionId}
                   >
                     <HStack>
-                      <Identicon size={24} seed={collection.address} />
+                      <Identicon size={24} seed={collection.collectionId} />
                       <Text>{collection.name}</Text>
                     </HStack>
                   </Button>

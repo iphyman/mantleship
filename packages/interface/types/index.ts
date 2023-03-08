@@ -1,3 +1,4 @@
+import { Collection } from "@prisma/client";
 import type { Web3ReactHooks } from "@web3-react/core";
 import type { Connector } from "@web3-react/types";
 
@@ -60,7 +61,7 @@ export type MintFormCollection = {
 
 export interface MintFormData {
   showProperties: boolean;
-  collections: MintFormCollection[];
+  collections: Collection[];
   activeCollection: MintFormCollection;
   royalty: string;
 }
@@ -75,4 +76,22 @@ export interface CollectionPayload {
   name: string;
   symbol: string;
   description?: string;
+}
+
+export interface CollectionApiPayload {
+  name: string;
+  symbol: string;
+  collectionId: string;
+  owner: string;
+  blockchainId: string;
+}
+
+export interface TokenApiPayload {
+  name: string;
+  tokenId: string;
+  image: string;
+  metadata: string;
+  royaltyFee: string;
+  collectionId: string;
+  owner: string;
 }

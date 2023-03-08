@@ -1,4 +1,5 @@
-import { ChainId, ERC721_MANTLE_ADDRESSES } from "app/configs";
+import { Collection } from "@prisma/client";
+// import { ChainId, ERC721_MANTLE_ADDRESSES } from "app/configs";
 import { MintFormData, TokenMetaData } from "app/types";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
@@ -12,7 +13,7 @@ type Progress = {
 type MintForm = MintFormData &
   TokenMetaData & {
     rawFile: File | null;
-    previewURL: string;
+    previewURL: string | null;
     txHash: string;
     progress: Progress[] | null;
     activeStep: number;
@@ -27,10 +28,10 @@ interface MintFormActions {
   setAttributes: (attributes: TokenMetaData["attributes"]) => void;
   setShowProperties: () => void;
   setActiveCollection: (collection: MintFormData["activeCollection"]) => void;
-  setCollections: (collections: MintFormData["collections"]) => void;
+  setCollections: (collections: Collection[]) => void;
   setRoyalty: (amount: string) => void;
   setTxHash: (hash: string) => void;
-  setPreviewURL: (url: string) => void;
+  setPreviewURL: (url: string | null) => void;
   setProgress: (steps: Progress[] | null) => void;
   updateProgress: (completedId: number, nextId?: number) => void;
   reset: () => void;
@@ -56,15 +57,10 @@ const INITIAL_STATE: MintForm = {
   ],
   showProperties: false,
   activeCollection: {
-    name: "Mantleship Open Store",
-    address: ERC721_MANTLE_ADDRESSES[ChainId.MANTLE_TESTNET],
+    name: "",
+    address: "",
   },
-  collections: [
-    {
-      name: "Mantleship Open Store",
-      address: ERC721_MANTLE_ADDRESSES[ChainId.MANTLE_TESTNET],
-    },
-  ],
+  collections: [],
   royalty: "",
   progress: null,
 };
@@ -109,7 +105,16 @@ export const useMintStore = create<MintFormState>()(
           }),
         setStep: (activeStep) => set({ activeStep }),
       }),
-      { name: "mantleship-mint-store", version: 1 }
+      {
+        name: "mantleship-mint-store",
+        version: 1,
+        partialize: (state) =>
+          Object.fromEntries(
+            Object.entries(state).filter(
+              ([key]) => !["rawFile", "image", "collections"].includes(key)
+            )
+          ),
+      }
     )
   )
 );

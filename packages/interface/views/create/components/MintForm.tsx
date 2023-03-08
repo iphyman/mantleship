@@ -13,18 +13,19 @@ import { useWeb3React } from "@web3-react/core";
 import { CREATE_NFT_STEPS } from "app/configs/steps";
 import { useERC721Collection } from "app/hooks/useContract";
 import { useMintStore } from "app/store";
-import { TokenMetaData } from "app/types";
+import { TokenApiPayload, TokenMetaData } from "app/types";
 import { validateDataMetaAttributes } from "app/utils";
 import { pinFileToIPFS, pinJSONToIPFS } from "app/utils/pinata";
 import { shallow } from "zustand/shallow";
 import { type ContractTransaction } from "ethers";
+import ProgressModal from "app/components/ModalViews/ProgressModal";
+import NftCreatedModal from "app/components/ModalViews/NftCreatedModal";
+import { enqueSnackbar } from "app/components";
+import axios from "axios";
 
 import { AssetUpload } from "./AssetUpload";
 import { Attributes } from "./Attributes";
-import { enqueSnackbar } from "app/components";
 import { Dropdown } from "./Dropdown";
-import ProgressModal from "app/components/ModalViews/ProgressModal";
-import NftCreatedModal from "app/components/ModalViews/NftCreatedModal";
 
 export const MintForm = () => {
   const [
@@ -103,9 +104,9 @@ export const MintForm = () => {
     //Upload metadata to IPFS
     const { uri } = await pinJSONToIPFS(metadata);
     setStep(3);
-    let tx: ContractTransaction;
 
     try {
+      let tx: ContractTransaction;
       if (parseInt(royalty) > 0) {
         const royaltyFee = parseInt(royalty) * 100;
         tx = await erc721.mintWithRoyalty(uri, account, royaltyFee);
@@ -125,11 +126,22 @@ export const MintForm = () => {
       const event = receipt?.events?.find((event) => event.event === "Minted");
 
       if (event && event.args) {
-        const [creator, tokenId, tokenURI] = event.args;
+        const [creator, tokenId, collection] = event.args;
+        const payload: TokenApiPayload = {
+          name,
+          tokenId,
+          image,
+          metadata: uri,
+          royaltyFee: royalty,
+          collectionId: activeCollection.address,
+          owner: creator,
+        };
+        //Persit token in database would be replaced in the future with indexer
+        await axios.post("/api/create/token", payload);
+
         console.log(`Collection: ${activeCollection.address}`);
         console.log(`Creator: ${creator}`);
         console.log(`TokenId: ${tokenId}`);
-        console.log(`TokenURI: ${tokenURI}`);
       }
     } catch (error) {
       enqueSnackbar(

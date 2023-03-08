@@ -2,6 +2,18 @@ import { BaseChainInfo, ConnectionType } from "app/types";
 import { ChainId } from "./chains";
 
 export const CHAIN_INFO: { [chainId: number]: BaseChainInfo } = {
+  [ChainId.FANTOM_TESTNET]: {
+    blockExplorerUrl: "https://testnet.ftmscan.com",
+    chainName: "Fantom Testnet",
+    iconUrl: "/blockchains/fantom.png",
+    rpcUrl: "https://rpc.testnet.fantom.network",
+    connectors: [ConnectionType.METAMASK],
+    nativeCurrency: {
+      name: "Fantom",
+      symbol: "FTM",
+      decimals: 18,
+    },
+  },
   [ChainId.MANTLE_TESTNET]: {
     blockExplorerUrl: "https://explorer.testnet.mantle.xyz",
     chainName: "Mantle Testnet",
