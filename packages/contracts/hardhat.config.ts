@@ -4,11 +4,10 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@openzeppelin/hardhat-upgrades";
 import "@typechain/hardhat";
 import "hardhat-deploy";
-import "hardhat-deploy-ethers";
 
 const chainIds = {
   mantle: 5001,
-  moonbase: 1287,
+  fantom: 4002,
 };
 
 export function getPrivateKey(networkName?: string) {
@@ -51,7 +50,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {},
     mantle: createConfig("mantle"),
-    moonbase: createConfig("moonbase"),
+    fantom: createConfig("fantom"),
   },
   namedAccounts: {
     deployer: process.env.deployer || "",
